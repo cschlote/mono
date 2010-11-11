@@ -1514,20 +1514,22 @@ namespace System.Data {
 				}
 			}
 
+			// enforce read-only check for CheckValue() or not
+			bool enforceconstraints = row.Table.EnforceConstraints;
 			// copy source record values to target records
 			foreach (DataColumn column in Table.Columns) {
-				DataColumn targetColumn = row.Table.Columns[column.ColumnName];
+				DataColumn targetColumn = row.Table.Columns [column.ColumnName];
 				//if a column with the same name exists in both rows copy the values
 				if (targetColumn != null) {
 					if (HasVersion (DataRowVersion.Original)) {
 						object val = column [Original];
-						row.CheckValue (val, targetColumn);
+						row.CheckValue (val, targetColumn, enforceconstraints);
 						targetColumn [row.Original] = val;
 					}
 
 					if (HasVersion (DataRowVersion.Current) && !preserveChanges) {
 						object val = column [Current];
-						row.CheckValue (val, targetColumn);
+						row.CheckValue (val, targetColumn, enforceconstraints);
 						targetColumn [row.Current] = val;
 					}
 				}

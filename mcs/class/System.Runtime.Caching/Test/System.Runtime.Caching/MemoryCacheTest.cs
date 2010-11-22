@@ -977,9 +977,9 @@ namespace MonoTests.System.Runtime.Caching
 		{
 			var mc = new PokerMemoryCache ("MyCache");
 
-			AssertExtensions.Throws<ArgumentNullException> (() => {
-				mc.GetValues (null);
-			}, "#A1-1");
+//			AssertExtensions.Throws<ArgumentNullException> (() => {
+//				mc.GetValues (null);
+//			}, "#A1-1");
 
 			AssertExtensions.Throws<NotSupportedException> (() => {
 				mc.GetValues (new string[] {}, "region");
